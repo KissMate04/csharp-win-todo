@@ -43,7 +43,7 @@ namespace todo
             if (tbItem.Text != "")
             {
                 string date = "", priority = "";
-                if (tbDate.Text != "") date = tbDate.Text;
+                if (tbDesc.Text != "") date = tbDesc.Text;
                 if (checkBox.Checked) priority = "!";
 
                 sw = new StreamWriter(@"..\..\..\todo.txt", true);
@@ -52,7 +52,7 @@ namespace todo
                 listBox.Items.Clear();
                 ListUpdate();
                 tbItem.Clear();
-                tbDate.Clear();
+                tbDesc.Clear();
             }
             tbItem.Focus();
         }
