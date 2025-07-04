@@ -32,7 +32,7 @@ namespace todo
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbItem = new System.Windows.Forms.TextBox();
             this.tbDesc = new System.Windows.Forms.TextBox();
-            this.checkBox = new System.Windows.Forms.CheckBox();
+            this.cbPrio = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,9 +41,12 @@ namespace todo
             this.btnAdd = new System.Windows.Forms.Button();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbPath = new System.Windows.Forms.TextBox();
             this.btnPath = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.cbNodate = new System.Windows.Forms.CheckBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbItem
@@ -56,22 +59,22 @@ namespace todo
             // 
             // tbDesc
             // 
-            this.tbDesc.Location = new System.Drawing.Point(82, 43);
+            this.tbDesc.Location = new System.Drawing.Point(82, 66);
             this.tbDesc.Multiline = true;
             this.tbDesc.Name = "tbDesc";
             this.tbDesc.Size = new System.Drawing.Size(289, 72);
             this.tbDesc.TabIndex = 1;
             this.tbDesc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDate_KeyPress);
             // 
-            // checkBox
+            // cbPrio
             // 
-            this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(12, 96);
-            this.checkBox.Name = "checkBox";
-            this.checkBox.Size = new System.Drawing.Size(63, 19);
-            this.checkBox.TabIndex = 2;
-            this.checkBox.Text = "Priority";
-            this.checkBox.UseVisualStyleBackColor = true;
+            this.cbPrio.AutoSize = true;
+            this.cbPrio.Location = new System.Drawing.Point(69, 36);
+            this.cbPrio.Name = "cbPrio";
+            this.cbPrio.Size = new System.Drawing.Size(63, 19);
+            this.cbPrio.TabIndex = 2;
+            this.cbPrio.Text = "Priority";
+            this.cbPrio.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -94,7 +97,7 @@ namespace todo
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 43);
+            this.label3.Location = new System.Drawing.Point(9, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 15);
             this.label3.TabIndex = 3;
@@ -107,16 +110,16 @@ namespace todo
             this.listBox.ForeColor = System.Drawing.Color.Black;
             this.listBox.FormattingEnabled = true;
             this.listBox.ItemHeight = 20;
-            this.listBox.Location = new System.Drawing.Point(12, 192);
+            this.listBox.Location = new System.Drawing.Point(15, 205);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(356, 344);
+            this.listBox.Size = new System.Drawing.Size(356, 384);
             this.listBox.TabIndex = 5;
             this.listBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox_KeyPress);
             // 
             // btnDel
             // 
             this.btnDel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDel.Location = new System.Drawing.Point(228, 551);
+            this.btnDel.Location = new System.Drawing.Point(138, 598);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(138, 23);
             this.btnDel.TabIndex = 4;
@@ -127,7 +130,7 @@ namespace todo
             // btnAdd
             // 
             this.btnAdd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAdd.Location = new System.Drawing.Point(161, 161);
+            this.btnAdd.Location = new System.Drawing.Point(161, 173);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(74, 23);
             this.btnAdd.TabIndex = 3;
@@ -145,48 +148,72 @@ namespace todo
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 123);
+            this.label4.Location = new System.Drawing.Point(10, 145);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 15);
             this.label4.TabIndex = 7;
             this.label4.Text = "Items are saved at:";
             // 
-            // textBox1
+            // tbPath
             // 
-            this.textBox1.Location = new System.Drawing.Point(117, 123);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(118, 20);
-            this.textBox1.TabIndex = 8;
+            this.tbPath.Location = new System.Drawing.Point(117, 145);
+            this.tbPath.Name = "tbPath";
+            this.tbPath.Size = new System.Drawing.Size(118, 20);
+            this.tbPath.TabIndex = 8;
             // 
             // btnPath
             // 
             this.btnPath.ForeColor = System.Drawing.Color.Black;
-            this.btnPath.Location = new System.Drawing.Point(241, 122);
+            this.btnPath.Location = new System.Drawing.Point(241, 144);
             this.btnPath.Name = "btnPath";
-            this.btnPath.Size = new System.Drawing.Size(75, 22);
+            this.btnPath.Size = new System.Drawing.Size(62, 22);
             this.btnPath.TabIndex = 9;
             this.btnPath.Text = "Browse";
             this.btnPath.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnEdit
             // 
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(13, 551);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Edit selected item";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnEdit.ForeColor = System.Drawing.Color.Black;
+            this.btnEdit.Location = new System.Drawing.Point(12, 598);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(120, 23);
+            this.btnEdit.TabIndex = 10;
+            this.btnEdit.Text = "Edit selected item";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // cbNodate
+            // 
+            this.cbNodate.AutoSize = true;
+            this.cbNodate.Location = new System.Drawing.Point(256, 36);
+            this.cbNodate.Name = "cbNodate";
+            this.cbNodate.Size = new System.Drawing.Size(93, 19);
+            this.cbNodate.TabIndex = 11;
+            this.cbNodate.Text = "No due date";
+            this.cbNodate.UseVisualStyleBackColor = true;
+            this.cbNodate.CheckedChanged += new System.EventHandler(this.cbNodate_CheckedChanged);
+            // 
+            // btnClear
+            // 
+            this.btnClear.ForeColor = System.Drawing.Color.Black;
+            this.btnClear.Location = new System.Drawing.Point(282, 598);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(86, 23);
+            this.btnClear.TabIndex = 12;
+            this.btnClear.Text = "Clear all";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(380, 590);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(380, 633);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.cbNodate);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnPath);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbPath);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.datePicker);
             this.Controls.Add(this.btnAdd);
@@ -195,7 +222,7 @@ namespace todo
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox);
+            this.Controls.Add(this.cbPrio);
             this.Controls.Add(this.tbDesc);
             this.Controls.Add(this.tbItem);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.3F);
@@ -218,7 +245,7 @@ namespace todo
 
         private System.Windows.Forms.TextBox tbItem;
         private System.Windows.Forms.TextBox tbDesc;
-        private System.Windows.Forms.CheckBox checkBox;
+        private System.Windows.Forms.CheckBox cbPrio;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -227,9 +254,12 @@ namespace todo
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DateTimePicker datePicker;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbPath;
         private System.Windows.Forms.Button btnPath;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.CheckBox cbNodate;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 
