@@ -45,7 +45,7 @@ namespace todo
             this.btnPath = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.cbNodate = new System.Windows.Forms.CheckBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.sfd = new System.Windows.Forms.SaveFileDialog();
             this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -158,18 +158,19 @@ namespace todo
             // 
             this.tbPath.Location = new System.Drawing.Point(117, 145);
             this.tbPath.Name = "tbPath";
-            this.tbPath.Size = new System.Drawing.Size(118, 20);
+            this.tbPath.Size = new System.Drawing.Size(186, 20);
             this.tbPath.TabIndex = 8;
             // 
             // btnPath
             // 
             this.btnPath.ForeColor = System.Drawing.Color.Black;
-            this.btnPath.Location = new System.Drawing.Point(241, 144);
+            this.btnPath.Location = new System.Drawing.Point(309, 144);
             this.btnPath.Name = "btnPath";
             this.btnPath.Size = new System.Drawing.Size(62, 22);
             this.btnPath.TabIndex = 9;
             this.btnPath.Text = "Browse";
             this.btnPath.UseVisualStyleBackColor = true;
+            this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
             // 
             // btnEdit
             // 
@@ -191,6 +192,12 @@ namespace todo
             this.cbNodate.Text = "No due date";
             this.cbNodate.UseVisualStyleBackColor = true;
             this.cbNodate.CheckedChanged += new System.EventHandler(this.cbNodate_CheckedChanged);
+            // 
+            // sfd
+            // 
+            this.sfd.DefaultExt = "\"txt\"";
+            this.sfd.FileName = "\"todo\"";
+            this.sfd.Filter = "\"Text file|*.txt|CSV file|*.csv\"";
             // 
             // btnClear
             // 
@@ -258,7 +265,7 @@ namespace todo
         private System.Windows.Forms.Button btnPath;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.CheckBox cbNodate;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog sfd;
         private System.Windows.Forms.Button btnClear;
     }
 }

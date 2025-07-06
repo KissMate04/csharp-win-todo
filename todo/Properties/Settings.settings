@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DataFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">..\..\..\todo.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

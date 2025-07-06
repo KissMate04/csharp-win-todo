@@ -16,6 +16,8 @@ namespace todo
         StreamWriter sw;
         StreamReader sr;
         List<Item> todoList = new List<Item>();
+        string currentPath = Path.GetFullPath(Properties.Settings.Default.DataFilePath);
+        string prevPath = Path.GetFullPath(Properties.Settings.Default.DataFilePath);
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace todo
 
                 Item item = new Item(tbItem.Text, date, priority, tbDesc.Text);
 
-                sw = new StreamWriter(@"..\..\..\todo.txt", true);
+                sw = new StreamWriter(currentPath, true);
                 sw.WriteLine(item.ToShortString());
                 sw.Close();
                 todoList.Add(item);
@@ -53,10 +55,10 @@ namespace todo
             if (i >= 0)
             {
                 todoList.RemoveAt(i);
-                sw = new StreamWriter(@"..\..\..\todo.txt");
+                sw = new StreamWriter(currentPath);
                 foreach (var item in todoList)
                 {
-                    sw.Write(item.ToString() + Environment.NewLine);
+                    sw.WriteLine(item.ToShortString());
                 }
                 sw.Close();
                 UpdateList();
@@ -73,7 +75,12 @@ namespace todo
         }
 
         private void InitializeList() {
-            sr = new StreamReader(@"..\..\..\todo.txt");
+            if (!File.Exists(currentPath)) {
+                MessageBox.Show($"File not found: {currentPath}");
+                currentPath = Path.GetFullPath(@"..\..\..\todo.txt");
+            }
+
+            sr = new StreamReader(currentPath);
             while (!sr.EndOfStream)
             {
                 string line = sr.ReadLine();
@@ -93,7 +100,7 @@ namespace todo
         private void ClearAll()
         {
             todoList.Clear();
-            sw = new StreamWriter(@"..\..\..\todo.txt");
+            sw = new StreamWriter(currentPath);
             sw.Write("");
             sw.Close();
             UpdateList();
@@ -101,6 +108,8 @@ namespace todo
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            tbPath.Text = currentPath;
+            tbPath.Enabled = false;
             InitializeList();
         }
 
@@ -162,6 +171,67 @@ namespace todo
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearAll();
+        }
+
+        private void btnPath_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Save text Files";
+            sfd.CheckFileExists = false;
+            sfd.CheckPathExists = true;
+            sfd.DefaultExt = "txt";
+            sfd.Filter = "Text files|*.txt|CSV files|*.csv";
+            sfd.FileName = "todo.txt";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (sfd.FileName != currentPath) {
+                    currentPath = sfd.FileName;
+                    DialogResult result = MessageBox.Show(
+                        "Would you like to transfer your current items to the new file?",
+                        "Transfer Items",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Question
+                    );
+
+                    Properties.Settings.Default.DataFilePath = currentPath;
+                    Properties.Settings.Default.Save();
+
+                    if (result == DialogResult.Yes)
+                    {
+                        TransferToFile();
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        ClearAll();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        currentPath = prevPath;
+                        Properties.Settings.Default.DataFilePath = currentPath;
+                        Properties.Settings.Default.Save();
+                    }
+                }
+                
+                tbPath.Text = sfd.FileName;
+            }
+        }
+
+        private void TransferToFile()
+        {
+            try
+            {
+                sw = new StreamWriter(currentPath);
+                foreach (var item in todoList)
+                {
+
+                    sw.Write(item.ToShortString() + "\n");
+                }
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error transferring items to file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
