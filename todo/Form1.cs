@@ -16,6 +16,7 @@ namespace todo
         StreamWriter sw;
         StreamReader sr;
         List<Item> todoList = new List<Item>();
+        public static Item edited;
         string currentPath = Path.GetFullPath(Properties.Settings.Default.DataFilePath);
         string prevPath = Path.GetFullPath(Properties.Settings.Default.DataFilePath);
         public Form1()
@@ -71,11 +72,13 @@ namespace todo
             foreach (var item in todoList)
             {
                 listBox.Items.Add(item.ToString());
-            }            
+            }
         }
 
-        private void InitializeList() {
-            if (!File.Exists(currentPath)) {
+        private void InitializeList()
+        {
+            if (!File.Exists(currentPath))
+            {
                 MessageBox.Show($"File not found: {currentPath}");
                 currentPath = Path.GetFullPath(@"..\..\..\todo.txt");
             }
@@ -87,11 +90,12 @@ namespace todo
                 if (!string.IsNullOrEmpty(line))
                 {
                     Item item = Item.Parse(line);
-                    if (item != null) {
+                    if (item != null)
+                    {
                         todoList.Add(item);
                         listBox.Items.Add(item.ToString());
                     }
-                    
+
                 }
             }
             sr.Close();
@@ -115,6 +119,7 @@ namespace todo
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            label5.Text = "add";
             Add();
         }
 
@@ -184,7 +189,8 @@ namespace todo
             sfd.FileName = "todo.txt";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                if (sfd.FileName != currentPath) {
+                if (sfd.FileName != currentPath)
+                {
                     currentPath = sfd.FileName;
                     DialogResult result = MessageBox.Show(
                         "Would you like to transfer your current items to the new file?",
@@ -211,7 +217,7 @@ namespace todo
                         Properties.Settings.Default.Save();
                     }
                 }
-                
+
                 tbPath.Text = sfd.FileName;
             }
         }
@@ -232,6 +238,43 @@ namespace todo
             {
                 MessageBox.Show($"Error transferring items to file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            label5.Text = "edit started";
+            if (listBox.SelectedIndex >= 0)
+            {
+                Item item = todoList[listBox.SelectedIndex];
+                EditItem editItemForm = new EditItem(item);
+                label5.Text = "item: "+item.ToShortString();
+
+                if (editItemForm.ShowDialog() == DialogResult.Yes)
+                {
+                    label5.Text = edited.ToShortString();
+                    InsertEditedItem(listBox.SelectedIndex, edited);
+                    label5.Text = edited.ToShortString();
+                }
+                else 
+                {
+                    label5.Text = "edit cancelled";
+                }
+
+
+            }
+
+
+        }
+        private void InsertEditedItem(int index, Item item)
+        {
+            todoList[index] = item;
+            sw = new StreamWriter(currentPath);
+            foreach (var i in todoList)
+            {
+                sw.WriteLine(i.ToShortString());
+            }
+            sw.Close();
+            UpdateList();
         }
     }
 }

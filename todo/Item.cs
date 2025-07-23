@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace todo
 {
-    internal class Item
+    public class Item
     {
         public string Title { get; set; }
         public string Date { get; set; }
@@ -35,8 +35,6 @@ namespace todo
         public static Item Parse(string line)
         {
             //title, date, priority, description
-
-
             string[] parts = line.Split(',');
             if (parts.Length > 0) {
                 string title = parts[0];
