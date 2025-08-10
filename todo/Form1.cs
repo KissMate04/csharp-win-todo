@@ -119,7 +119,6 @@ namespace todo
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            label5.Text = "add";
             Add();
         }
 
@@ -242,22 +241,14 @@ namespace todo
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            label5.Text = "edit started";
             if (listBox.SelectedIndex >= 0)
             {
                 Item item = todoList[listBox.SelectedIndex];
                 EditItem editItemForm = new EditItem(item);
-                label5.Text = "item: "+item.ToShortString();
 
                 if (editItemForm.ShowDialog() == DialogResult.Yes)
                 {
-                    label5.Text = edited.ToShortString();
                     InsertEditedItem(listBox.SelectedIndex, edited);
-                    label5.Text = edited.ToShortString();
-                }
-                else 
-                {
-                    label5.Text = "edit cancelled";
                 }
 
 

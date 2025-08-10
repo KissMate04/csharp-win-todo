@@ -47,7 +47,6 @@ namespace todo
             this.cbNodate = new System.Windows.Forms.CheckBox();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
             this.btnClear = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbItem
@@ -212,22 +211,12 @@ namespace todo
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 181);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 15);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "label5";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(380, 633);
-            this.Controls.Add(this.label5);
+            this.ClientSize = new System.Drawing.Size(387, 633);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.cbNodate);
             this.Controls.Add(this.btnEdit);
@@ -246,8 +235,8 @@ namespace todo
             this.Controls.Add(this.tbItem);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.3F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Location = new System.Drawing.Point(1500, 500);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -279,7 +268,6 @@ namespace todo
         private System.Windows.Forms.CheckBox cbNodate;
         private System.Windows.Forms.SaveFileDialog sfd;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Label label5;
     }
 }
 
